@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miampic · 产品设计哲学</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lavender: #B8A9E8;
+      --mint: #A8D8B8;
+      --butter: #F5E6B8;
+      --lavender-soft: #EDE8F8;
+      --mint-soft: #E2F3E9;
+      --butter-soft: #FDF6E3;
+      --text-main: #3D3A56;
+      --text-muted: #8A86A8;
+      --text-accent: #6B5FB0;
+      --bg-page: #FDFCFE;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* ── Page background decoration ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      right: -200px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,169,232,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px;
+      left: -150px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,216,184,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .doc {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      text-align: center;
+      padding: 3rem 1rem 2.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .cat-logo {
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 8px 20px rgba(184,169,232,0.25));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .product-name {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 42px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #B8A9E8 0%, #A8D8B8 50%, #E8C4A8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 14px 0 8px;
+    }
+
+    .product-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      font-weight: 300;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 2.5rem 0;
+      animation: fadeUp 0.8s ease both;
+      animation-delay: 0.1s;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 0.5px;
+      background: linear-gradient(90deg, transparent, rgba(184,169,232,0.5), transparent);
+    }
+
+    .divider-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--lavender);
+      opacity: 0.6;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .section:nth-child(3)  { animation-delay: 0.1s; }
+    .section:nth-child(5)  { animation-delay: 0.2s; }
+    .section:nth-child(7)  { animation-delay: 0.3s; }
+    .section:nth-child(9)  { animation-delay: 0.4s; }
+    .section:nth-child(11) { animation-delay: 0.5s; }
+    .section:nth-child(13) { animation-delay: 0.6s; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 0.5px;
+      background: var(--lavender);
+      opacity: 0.8;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .section-body {
+      font-size: 14.5px;
+      line-height: 2;
+      color: #5A567A;
+      font-weight: 300;
+    }
+
+    /* ── Origin block ── */
+    .origin-block {
+      background: linear-gradient(135deg, rgba(184,169,232,0.07), rgba(168,216,184,0.05));
+      border-left: 2px solid var(--lavender);
+      border-radius: 0 14px 14px 0;
+      padding: 1.4rem 1.5rem;
+      margin: 1.2rem 0;
+    }
+
+    .origin-block p {
+      font-size: 14.5px;
+      line-height: 2;
+      color: #5A567A;
+      font-weight: 300;
+    }
+
+    /* ── Scene blocks ── */
+    .scene-block {
+      border-radius: 18px;
+      padding: 1.4rem 1.5rem;
+      margin: 1rem 0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .scene-block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(184,169,232,0.12);
+    }
+
+    .scene-block-1 {
+      background: linear-gradient(135deg, rgba(184,169,232,0.1), rgba(184,169,232,0.03));
+      border: 0.5px solid rgba(184,169,232,0.3);
+    }
+
+    .scene-block-2 {
+      background: linear-gradient(135deg, rgba(168,216,184,0.1), rgba(168,216,184,0.03));
+      border: 0.5px solid rgba(168,216,184,0.3);
+    }
+
+    .scene-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .scene-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .scene-body {
+      font-size: 13.5px;
+      color: #6A6690;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ── Flow steps ── */
+    .flow-steps {
+      margin: 1.4rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.6);
+      border: 0.5px solid rgba(200,195,220,0.2);
+      transition: background 0.2s ease;
+    }
+
+    .flow-step:hover {
+      background: rgba(255,255,255,0.9);
+    }
+
+    .flow-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .flow-num-1 { background: var(--lavender-soft); color: #6B5FB0; border: 0.5px solid rgba(184,169,232,0.5); }
+    .flow-num-2 { background: var(--mint-soft);     color: #4A9068; border: 0.5px solid rgba(168,216,184,0.5); }
+    .flow-num-3 { background: var(--butter-soft);   color: #9A7830; border: 0.5px solid rgba(245,230,184,0.5); }
+    .flow-num-4 { background: rgba(230,220,248,0.5); color: #7B6BB8; border: 0.5px solid rgba(184,169,232,0.3); }
+
+    .flow-text {
+      font-size: 14px;
+      color: #5A567A;
+      line-height: 1.7;
+      font-weight: 300;
+      padding-top: 4px;
+    }
+
+    .flow-text strong {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    /* ── Card row ── */
+    .card-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin: 1.4rem 0;
+    }
+
+    @media (max-width: 480px) {
+      .card-row { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      border-radius: 18px;
+      padding: 1.4rem 1.1rem;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(184,169,232,0.14);
+    }
+
+    .card-lavender {
+      background: var(--lavender-soft);
+      border: 0.5px solid rgba(184,169,232,0.35);
+    }
+
+    .card-mint {
+      background: var(--mint-soft);
+      border: 0.5px solid rgba(168,216,184,0.35);
+    }
+
+    .card-butter {
+      background: var(--butter-soft);
+      border: 0.5px solid rgba(245,230,184,0.4);
+    }
+
+    .card-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── Color palette ── */
+    .color-palette {
+      display: flex;
+      gap: 14px;
+      margin: 1.2rem 0;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .swatch-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swatch {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .swatch-lavender { background: #B8A9E8; }
+    .swatch-mint     { background: #A8D8B8; }
+    .swatch-butter   { background: #F5E6B8; }
+    .swatch-mix      { background: linear-gradient(135deg, #B8A9E8, #A8D8B8, #F5E6B8); }
+
+    .swatch-name {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .swatch-extra-label {
+      font-size: 13px;
+      color: #6A6690;
+      font-weight: 300;
+      line-height: 1.8;
+      margin-left: 4px;
+    }
+
+    /* ── Closing ── */
+    .closing {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      background: linear-gradient(135deg,
+        rgba(184,169,232,0.07),
+        rgba(168,216,184,0.05),
+        rgba(245,230,184,0.07)
+      );
+      border-radius: 24px;
+      border: 0.5px solid rgba(184,169,232,0.2);
+      animation: fadeUp 0.8s ease both;
+      animation-delay: 0.7s;
+    }
+
+    .closing-title {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+
+    .closing-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 2;
+      font-weight: 300;
+    }
+
+    .author-line {
+      margin-top: 1.8rem;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0.8;
+    }
+
+    .paw-svg {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+<div class="doc">
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cat-logo">
+      <svg viewBox="0 0 128 128" width="72" height="72" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="catGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   style="stop-color:#B8A9E8"/>
+            <stop offset="50%"  style="stop-color:#A8D8B8"/>
+            <stop offset="100%" style="stop-color:#F5E6B8"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="120" height="120" rx="24" fill="url(#catGrad)"/>
+        <g fill="#5D5A6E">
+          <ellipse cx="62" cy="98" rx="24" ry="20"/>
+          <path d="M 85 95 Q 98 88, 102 75 Q 105 65, 102 58 Q 100 54, 97 56 Q 94 60, 94 68 Q 94 80, 82 92 Z"/>
+          <ellipse cx="62" cy="58" rx="32" ry="28"/>
+          <polygon points="36,32 46,58 26,50"/>
+          <polygon points="88,32 78,58 98,50"/>
+          <ellipse cx="50" cy="54" rx="6" ry="7" fill="#FFF"/>
+          <ellipse cx="74" cy="54" rx="6" ry="7" fill="#FFF"/>
+          <circle cx="51" cy="55" r="3.5" fill="#3D3A4E"/>
+          <circle cx="75" cy="55" r="3.5" fill="#3D3A4E"/>
+          <ellipse cx="62" cy="66" rx="4" ry="2.5" fill="#E8A0B0"/>
+        </g>
+      </svg>
+    </div>
+    <div class="product-name">Miampic</div>
+    <div class="product-tagline">图片提示词生成器 · 产品设计哲学</div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- 起源 -->
+  <div class="section">
+    <div class="section-label">起源</div>
+    <div class="section-title">从一个真实的工作痛点出发</div>
+    <div class="origin-block">
+      <p>工作中需要为外语单词和例句配上合适的图片，作为软件开屏图使用。抽象词汇难以直接生成好图，于是想到参考网络上的美图风格，用 AI 来生成。但问题随之而来——每次都要把图片拷贝出来，发给 AI 提取提示词，再转发给生图工具，流程又长又繁琐。</p>
+    </div>
+    <div class="section-body">
+      Miampic 就是为了消灭这段多余的摩擦而诞生的。截图、上传、右键——三种方式，一键生成可以直接使用的提示词。
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- 使用场景 -->
+  <div class="section">
+    <div class="section-label">使用场景</div>
+    <div class="section-title">两种人，两种需要</div>
+
+    <div class="scene-block scene-block-1">
+      <div class="scene-tag" style="color:#7B6BB8;">场景一 · 直接生图</div>
+      <div class="scene-title">内容创作者 / 设计师</div>
+      <div class="scene-body">看到一张喜欢的图，想生成类似风格的图片用于工作。不需要上传自己的照片，只需要提取参考图的提示词，直接发给生图 AI 即可。</div>
+    </div>
+
+    <div class="scene-block scene-block-2">
+      <div class="scene-tag" style="color:#4A9068;">场景二 · 辅助改图</div>
+      <div class="scene-title">小红书用户 / 爱美人士</div>
+      <div class="scene-body">看到别人发布的 AI 美照想要效仿，需要把提示词和自己的照片一起发给 AI，生成同款风格的图片。切换到「辅助改图」模式，提示词会自动适配这个场景。</div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- 使用流程 -->
+  <div class="section">
+    <div class="section-label">使用流程</div>
+    <div class="section-title">越短越好，消灭多余步骤</div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num flow-num-1">1</div>
+        <div class="flow-text"><strong>选择来源</strong> — 截图当前页面、上传本地图片，或右键任意网页图片</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num flow-num-2">2</div>
+        <div class="flow-text"><strong>选择用途</strong> — 「直接生图」或「辅助改图」，决定提示词的生成方向</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num flow-num-3">3</div>
+        <div class="flow-text"><strong>AI 分析图像</strong> — 自动识别风格、构图、色调、氛围，生成中英双语提示词</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num flow-num-4">4</div>
+        <div class="flow-text"><strong>复制使用</strong> — 提示词保存在设置页，随时查看历史记录，本地存储不上传</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- 设计语言 -->
+  <div class="section">
+    <div class="section-label">设计语言</div>
+    <div class="section-title">用色彩表达性格</div>
+    <div class="section-body" style="margin-bottom:1.2rem;">整个插件的视觉风格围绕三个主色展开，不是刻意挑选的「专业配色」，而是设计者本人喜欢的颜色。这种真实的个人偏好，让产品带上了温度。</div>
+
+    <div class="color-palette">
+      <div class="swatch-group">
+        <div class="swatch swatch-lavender"></div>
+        <div class="swatch-name">淡紫</div>
+      </div>
+      <div class="swatch-group">
+        <div class="swatch swatch-mint"></div>
+        <div class="swatch-name">淡绿</div>
+      </div>
+      <div class="swatch-group">
+        <div class="swatch swatch-butter"></div>
+        <div class="swatch-name">淡黄</div>
+      </div>
+      <div class="swatch-group">
+        <div class="swatch swatch-mix"></div>
+        <div class="swatch-name">渐变</div>
+      </div>
+      <div class="swatch-extra-label">三色渐变贯穿全局<br>从 logo 到按钮到卡片</div>
+    </div>
+
+    <div class="card-row">
+      <div class="card card-lavender">
+        <div class="card-name" style="color:#6B5FB0;">淡紫</div>
+        <div class="card-desc">主品牌色，logo、标题、强调元素</div>
+      </div>
+      <div class="card card-mint">
+        <div class="card-name" style="color:#4A9068;">淡绿</div>
+        <div class="card-desc">辅助色，成功状态、渐变过渡</div>
+      </div>
+      <div class="card card-butter">
+        <div class="card-name" style="color:#9A7830;">淡黄</div>
+        <div class="card-desc">点缀色，温暖感、渐变尾端</div>
+      </div>
+    </div>
+
+    <div class="section-body">logo 中的小猫形象带着可爱的气质，尾巴的曲线呼应了产品名「miam」中那份轻盈感。图标会在页面上轻轻浮动——这个小动画不是炫技，是一种招呼。</div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- 产品价值观 -->
+  <div class="section">
+    <div class="section-label">产品价值观</div>
+    <div class="section-title">克制、实用、有个性</div>
+    <div class="card-row">
+      <div class="card card-lavender">
+        <div class="card-name" style="color:#6B5FB0;">克制</div>
+        <div class="card-desc">功能不多，但每个功能都是真实需要的</div>
+      </div>
+      <div class="card card-mint">
+        <div class="card-name" style="color:#4A9068;">实用</div>
+        <div class="card-desc">先解决自己的问题，再希望帮到别人</div>
+      </div>
+      <div class="card card-butter">
+        <div class="card-name" style="color:#9A7830;">真实</div>
+        <div class="card-desc">配色是真实喜好，buy me a coffee 是真实乐趣</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- Closing -->
+  <div class="closing">
+    <div class="closing-title">一个 PM 的第一个电子产品宝宝</div>
+    <div class="closing-body">
+      从 Claude 搭起第一个界面，到扣子编程里十几轮的 bug 修改和界面打磨，<br>
+      这是一段零编程基础的 PM 用「好好提需求」换来的产品。<br><br>
+      功能局限，但真实有用。<br>
+      这就够了。
+    </div>
+    <div class="author-line">
+      <svg class="paw-svg" viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="12" cy="16" rx="4.5" ry="3.5" fill="#B8A9E8"/>
+        <ellipse cx="6" cy="10.5" rx="1.8" ry="2.3" fill="#B8A9E8"/>
+        <ellipse cx="18" cy="10.5" rx="1.8" ry="2.3" fill="#B8A9E8"/>
+        <ellipse cx="9.5" cy="6" rx="2.2" ry="2.7" fill="#B8A9E8"/>
+        <ellipse cx="14.5" cy="6" rx="2.2" ry="2.7" fill="#B8A9E8"/>
+      </svg>
+      <span>Miampic V1.0.0 · by Prune</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
