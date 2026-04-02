@@ -26,7 +26,7 @@ Miampic 把这个过程压缩成一步——截图、上传或右键图片，直
 - 🖱 右键网页图片直接生成
 
 **两种提示词用途**
-- **直接生图**：提取参考图风格，发给 Midjourney / Stable Diffusion 等生图工具
+- **直接生图**：提取参考图风格，发给豆包 / 即梦 / 海螺 / 通义万象 / Midjourney / Stable Diffusion 等生图工具
 - **辅助改图**：搭配自己的照片，复刻同款 AI 美图风格（适合小红书场景）
 
 **其他**
@@ -73,15 +73,8 @@ Miampic 把这个过程压缩成一步——截图、上传或右键图片，直
 
 功能不多，但每个功能都是真实需要的。先解决自己的问题，再希望能帮到别人。
 
-→ [查看完整产品设计哲学](./philosophy.html)
+→ [查看完整产品设计哲学](https://410820g-commits.github.io/miampic-extension/philosophy.html)
 
----
-
-## 技术栈
-
-- Chrome Extension Manifest V3
-- 原生 HTML / CSS / JavaScript
-- 无任何第三方框架依赖
 
 ---
 
@@ -92,9 +85,3 @@ Miampic 把这个过程压缩成一步——截图、上传或右键图片，直
 优势是会提需求 🐾
 
 Buy me a coffee 纯属找个乐子，好玩。
-
----
-
-## License
-
-MIT License · 随便用，随便改，留个 star 就好 ⭐
