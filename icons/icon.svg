@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="catGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B8A9E8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#A8D8B8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5E6B8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="4" y="4" width="120" height="120" rx="24" fill="url(#catGrad)"/>
+  <!-- Cat silhouette - enlarged, top margin reduced to ~1/5 -->
+  <g fill="#5D5A6E">
+    <!-- Body -->
+    <ellipse cx="62" cy="98" rx="24" ry="20"/>
+    <!-- Tail - thinner, connected to body -->
+    <path d="M 85 95 Q 98 88, 102 75 Q 105 65, 102 58 Q 100 54, 97 56 Q 94 60, 94 68 Q 94 80, 82 92 Z" fill="#5D5A6E"/>
+    <!-- Head -->
+    <ellipse cx="62" cy="58" rx="32" ry="28"/>
+    <!-- Left ear -->
+    <polygon points="36,32 46,58 26,50"/>
+    <!-- Right ear -->
+    <polygon points="88,32 78,58 98,50"/>
+    <!-- Eyes -->
+    <ellipse cx="50" cy="54" rx="6" ry="7" fill="#FFF"/>
+    <ellipse cx="74" cy="54" rx="6" ry="7" fill="#FFF"/>
+    <circle cx="51" cy="55" r="3.5" fill="#3D3A4E"/>
+    <circle cx="75" cy="55" r="3.5" fill="#3D3A4E"/>
+    <!-- Nose -->
+    <ellipse cx="62" cy="66" rx="4" ry="2.5" fill="#E8A0B0"/>
+  </g>
+</svg>

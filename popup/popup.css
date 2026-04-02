@@ -1,0 +1,238 @@
+/* popup.css - Miampic 弹窗样式 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(45deg, #FDFCFE 0%, #FBF9FC 50%, #FEFDFE 100%);
+  min-width: 280px;
+  max-width: 280px;
+}
+
+.popup-container {
+  padding: 16px;
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.popup-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.popup-logo-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  overflow: hidden;
+  animation: logoBounce 2s ease-in-out infinite;
+}
+
+@keyframes logoBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.popup-logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #B8A9E8, #A8D8B8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+}
+
+.popup-settings-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(200, 195, 210, 0.2);
+  color: #8A8A9A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.popup-settings-btn:hover {
+  background: rgba(184, 169, 232, 0.25);
+  color: #6A6A7A;
+  transform: rotate(60deg);
+}
+
+/* API Warning */
+.popup-api-warning {
+  background: linear-gradient(135deg, rgba(232, 160, 160, 0.12), rgba(240, 200, 216, 0.08));
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.popup-api-warning svg {
+  margin-bottom: 10px;
+}
+
+.popup-api-warning p {
+  color: #7A5A5A;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.popup-setup-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #E8A0A0, #F0B8B8);
+  color: #FFF;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.popup-setup-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 160, 160, 0.3);
+}
+
+/* Main Actions */
+.popup-main-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 提示词用途行 - 标签和下拉框并排 */
+.popup-mode-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(200, 195, 210, 0.12);
+  border-radius: 10px;
+}
+
+.popup-mode-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5A5A6A;
+  white-space: nowrap;
+}
+
+.popup-mode-select {
+  flex: 0 0 auto;
+  width: 100px;
+  padding: 6px 28px 6px 10px;
+  border: 1px solid rgba(200, 195, 210, 0.5);
+  border-radius: 8px;
+  background: #FFF;
+  font-family: inherit;
+  font-size: 13px;
+  color: #4A4A5A;
+  cursor: pointer;
+  transition: all 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%238A8A9A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.popup-mode-select:focus {
+  outline: none;
+  border-color: #B8A9E8;
+}
+
+/* Action Buttons */
+.popup-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.popup-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 12px;
+  border: 1px solid rgba(200, 195, 210, 0.4);
+  border-radius: 12px;
+  background: #FFF;
+  color: #5A5A6A;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.popup-action-btn svg {
+  color: #B8A9E8;
+  transition: all 0.2s ease;
+}
+
+.popup-action-btn:hover {
+  border-color: #B8A9E8;
+  box-shadow: 0 0 0 3px rgba(184, 169, 232, 0.15);
+  transform: scale(1.03);
+}
+
+.popup-action-btn:hover svg {
+  color: #9A8AD8;
+}
+
+.popup-action-btn:active {
+  transform: scale(0.98);
+}
+
+/* 右键提示 */
+.popup-hint {
+  font-size: 11px;
+  color: #A0A0B0;
+  text-align: left;
+  margin-top: 4px;
+}
+
+/* Footer */
+.popup-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(200, 195, 210, 0.3);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+}
+
+.popup-version {
+  font-size: 11px;
+  color: #B8B8C8;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.popup-paw-icon {
+  width: 14px;
+  height: 14px;
+  fill: #B8A9E8;
+}

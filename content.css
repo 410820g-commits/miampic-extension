@@ -1,0 +1,390 @@
+/* content.css - Miampic 页面样式 */
+
+/* 截图提示 */
+.miampic-screenshot-hint {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #B8A9E8, #A8D8B8);
+  color: #FFF;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(100, 90, 120, 0.25);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideDown 0.3s ease;
+}
+
+/* 截图交互层 */
+#miampic-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: crosshair;
+  z-index: 2147483638;
+  background: transparent;
+}
+
+/* 选择框 */
+#miampic-selection {
+  display: none;
+  position: fixed;
+  border: 2px solid #B8A9E8;
+  background: transparent;
+  z-index: 2147483640;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+/* 选择框尺寸显示 */
+.miampic-selection-size {
+  position: absolute;
+  bottom: -24px;
+  right: 0;
+  background: rgba(60, 50, 80, 0.9);
+  color: #FFF;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+/* 四个角的标记 */
+.miampic-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #A8D8B8;
+}
+
+.miampic-corner-tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.miampic-corner-tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.miampic-corner-bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.miampic-corner-br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+/* 结果面板 */
+#miampic-panel {
+  position: fixed;
+  width: 360px;
+  max-width: calc(100vw - 40px);
+  max-height: 80vh;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(100, 90, 120, 0.2);
+  font-family: 'Nunito', sans-serif;
+  z-index: 2147483646;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInScale 0.3s ease;
+  box-sizing: border-box;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 面板头部 */
+.miampic-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #F0F0F4, #F8F8FA);
+  border-bottom: 1px solid rgba(200, 195, 210, 0.5);
+  cursor: grab;
+}
+
+.miampic-panel-header:active {
+  cursor: grabbing;
+}
+
+.miampic-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #B8A9E8, #A8D8B8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  user-select: none;
+}
+
+.miampic-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8A8A9A;
+  transition: all 0.2s;
+}
+
+.miampic-close:hover {
+  background: rgba(200, 150, 160, 0.2);
+  color: #6A6A7A;
+}
+
+/* 面板主体 */
+.miampic-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 提示词编辑器 */
+.miampic-prompt-editor {
+  width: 100%;
+  min-height: 180px;
+  max-height: 300px;
+  padding: 12px;
+  border: 1px solid rgba(200, 195, 210, 0.6);
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #4A4A5A;
+  resize: none;
+  background: #FAFAFC;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.miampic-prompt-editor:focus {
+  outline: none;
+  border-color: #B8A9E8;
+  background: #FFF;
+}
+
+.miampic-prompt-loading {
+  background: linear-gradient(90deg, #FAFAFC 25%, #F0F0F4 50%, #FAFAFC 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 加载指示器 */
+.miampic-loading-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #7A7A8A;
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+/* 提示词用途标签 */
+.miampic-mode-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: rgba(184, 169, 232, 0.15);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8A7AB8;
+  margin-bottom: 10px;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.miampic-mode-tag svg {
+  flex-shrink: 0;
+}
+
+.miampic-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(184, 169, 232, 0.3);
+  border-top-color: #B8A9E8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.miampic-spinner-small {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(184, 169, 232, 0.3);
+  border-top-color: #B8A9E8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 错误状态 */
+.miampic-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.miampic-error p {
+  margin: 12px 0;
+  color: #6A6A7A;
+  font-size: 14px;
+}
+
+/* 操作按钮 */
+.miampic-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.miampic-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.miampic-btn-translate {
+  background: linear-gradient(135deg, #B8A9E8, #C8B9F0);
+  color: #FFF;
+}
+
+.miampic-btn-translate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(184, 169, 232, 0.4);
+}
+
+.miampic-btn-translate:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.miampic-btn-copy {
+  background: linear-gradient(135deg, #A8D8B8, #B8E8C8);
+  color: #FFF;
+}
+
+.miampic-btn-copy:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(168, 216, 184, 0.4);
+}
+
+.miampic-btn-success {
+  background: linear-gradient(135deg, #A8D8B8, #B8E8C8) !important;
+}
+
+.miampic-btn-retry {
+  background: linear-gradient(135deg, #E8C0C0, #F0D0D0);
+  color: #5A5A6A;
+  margin-top: 8px;
+  width: auto;
+  padding: 8px 24px;
+}
+
+/* 页脚链接 */
+.miampic-footer-links {
+  padding-top: 12px;
+  border-top: 1px solid rgba(200, 195, 210, 0.3);
+  text-align: center;
+}
+
+.miampic-doubao-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #A8A8B8;
+  font-size: 12px;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.miampic-doubao-link:hover {
+  background: rgba(168, 216, 184, 0.15);
+  color: #8A8A9A;
+}
+
+/* 成功动画 */
+.miampic-success-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.miampic-success-animation.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.miampic-success-animation svg {
+  filter: drop-shadow(0 4px 12px rgba(168, 216, 184, 0.5));
+}
+
+/* 页面滑入滑出动画 */
+@keyframes slideDown {
+  from {
+    transform: translateX(-50%) translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(-20px);
+    opacity: 0;
+  }
+}

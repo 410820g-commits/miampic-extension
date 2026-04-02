@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>图片提示词生成器 - 设置</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <svg viewBox="0 0 128 128" width="48" height="48">
+          <defs>
+            <linearGradient id="catGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#B8A9E8"/>
+              <stop offset="50%" style="stop-color:#A8D8B8"/>
+              <stop offset="100%" style="stop-color:#F5E6B8"/>
+            </linearGradient>
+          </defs>
+          <rect x="4" y="4" width="120" height="120" rx="24" fill="url(#catGrad)"/>
+          <g fill="#5D5A6E">
+            <ellipse cx="62" cy="98" rx="24" ry="20"/>
+            <path d="M 85 95 Q 98 88, 102 75 Q 105 65, 102 58 Q 100 54, 97 56 Q 94 60, 94 68 Q 94 80, 82 92 Z" fill="#5D5A6E"/>
+            <ellipse cx="62" cy="58" rx="32" ry="28"/>
+            <polygon points="36,32 46,58 26,50"/>
+            <polygon points="88,32 78,58 98,50"/>
+            <ellipse cx="50" cy="54" rx="6" ry="7" fill="#FFF"/>
+            <ellipse cx="74" cy="54" rx="6" ry="7" fill="#FFF"/>
+            <circle cx="51" cy="55" r="3.5" fill="#3D3A4E"/>
+            <circle cx="75" cy="55" r="3.5" fill="#3D3A4E"/>
+            <ellipse cx="62" cy="66" rx="4" ry="2.5" fill="#E8A0B0"/>
+          </g>
+        </svg>
+        <h1>Miampic</h1>
+      </div>
+      <p class="subtitle">智能提取图片特征，一键生成AI绘画提示词</p>
+      <div class="coffee-section">
+        <button class="coffee-btn" id="coffeeBtn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            <line x1="6" y1="1" x2="6" y2="4"></line>
+            <line x1="10" y1="1" x2="10" y2="4"></line>
+            <line x1="14" y1="1" x2="14" y2="4"></line>
+          </svg>
+          Buy me a coffee
+        </button>
+        <div class="coffee-qrcode" id="coffeeQrcode">
+          <img src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2FIMG_4936%2820260402-122901%29.PNG&nonce=628b458d-788d-439f-9d54-949099a16f29&project_id=7623714500692295734&sign=7ef21a60f2464c6a379e31be5658af2b040ce79d33f738487153a02b92de2cdc" alt="收款码">
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 切换 -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="settings">设置</button>
+      <button class="tab-btn" data-tab="history">历史记录</button>
+      <button class="tab-btn" data-tab="about">关于</button>
+    </div>
+
+    <form id="settingsForm">
+      <!-- 设置 Tab -->
+      <div class="tab-content active" id="tab-settings">
+        <!-- API 设置 -->
+        <section class="section">
+          <div class="section-title-row">
+            <h2>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+              </svg>
+              API 设置
+            </h2>
+            <button type="button" class="link-btn" id="getApiKeyBtn">获取 API Key</button>
+          </div>
+          
+          <div class="form-group">
+            <label>API 提供商</label>
+            <select id="provider" name="provider">
+              <option value="siliconflow">硅基流动 SiliconFlow</option>
+              <option value="gemini">Google Gemini</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>API Key</label>
+            <div class="input-with-action">
+              <input type="password" id="apiKey" name="apiKey" placeholder="请输入 API Key">
+              <button type="button" class="btn-icon" id="toggleKeyVisibility" title="显示/隐藏">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>视觉模型</label>
+            <select id="model" name="model">
+              <option value="zai-org/GLM-4.5V">GLM-4.5V (硅基流动)</option>
+              <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- 提示词设置 -->
+        <section class="section">
+          <h2>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+            提示词设置
+          </h2>
+          
+          <div class="form-group">
+            <label>默认语言</label>
+            <select id="language" name="language">
+              <option value="zh">中文</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>提示词用途</label>
+            <select id="mode" name="mode">
+              <option value="generate">直接生图</option>
+              <option value="assist">辅助改图</option>
+            </select>
+            <span class="hint">直接生图：适合直接用于AI生图；辅助改图：适合修改其他图片</span>
+          </div>
+        </section>
+        
+        <div class="actions">
+          <button type="submit" class="btn-primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            保存设置
+          </button>
+        </div>
+      </div>
+
+      <!-- 历史记录 Tab -->
+      <div class="tab-content" id="tab-history">
+        <section class="section section-full">
+          <div class="history-header">
+            <span id="historyCount">0 条记录</span>
+            <button type="button" class="btn-text danger" id="clearHistoryBtn">清空历史</button>
+          </div>
+          <div id="historyList" class="history-list">
+            <div class="history-empty">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#C8C8D8" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <p>暂无历史记录</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 关于 Tab -->
+      <div class="tab-content" id="tab-about">
+        <div class="about-page">
+          <div class="about-section">
+            <h2>灵感</h2>
+            <div class="about-origin">
+              <p>工作中需要为外语单词和例句配上合适的图片，作为软件开屏图使用。抽象词汇难以直接生成好图，于是想到参考网络上的美图风格，用 AI 来生成。但问题随之而来——每次都要把图片拷贝出来，发给 AI 提取提示词，再转发给生图工具，流程又长又繁琐。</p>
+            </div>
+            <p class="about-desc">Miampic 就是为了消灭这段多余的摩擦而诞生的。截图、上传、右键——三种方式，一键生成可以直接使用的提示词。</p>
+          </div>
+
+          <div class="about-divider">
+            <span></span>
+            <span class="dot"></span>
+            <span></span>
+          </div>
+
+          <div class="about-section">
+            <h2>两种使用场景</h2>
+            <div class="about-cards">
+              <div class="about-card about-card-lavender">
+                <span class="about-card-tag">场景一</span>
+                <h3>直接生图</h3>
+                <p>内容创作者 / 设计师<br>提取参考图的提示词，直接发给生图 AI</p>
+              </div>
+              <div class="about-card about-card-mint">
+                <span class="about-card-tag">场景二</span>
+                <h3>辅助改图</h3>
+                <p>小红书用户 / 爱美人士<br>提示词配合自己的照片，生成同款风格</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-divider">
+            <span></span>
+            <span class="dot"></span>
+            <span></span>
+          </div>
+
+          <div class="about-section">
+            <h2>设计语言</h2>
+            <div class="about-colors">
+              <div class="about-swatch">
+                <span style="background:#B8A9E8"></span>
+                <span>淡紫</span>
+              </div>
+              <div class="about-swatch">
+                <span style="background:#A8D8B8"></span>
+                <span>淡绿</span>
+              </div>
+              <div class="about-swatch">
+                <span style="background:#F5E6B8"></span>
+                <span>淡黄</span>
+              </div>
+            </div>
+            <p class="about-desc">三色渐变贯穿全局，从 logo 到按钮到卡片。小猫形象带着可爱的气质，尾巴的曲线呼应了产品名「miam」中那份轻盈感。</p>
+          </div>
+
+          <div class="about-divider">
+            <span></span>
+            <span class="dot"></span>
+            <span></span>
+          </div>
+
+          <div class="about-section">
+            <h2>产品价值观</h2>
+            <div class="about-values">
+              <div class="about-value">
+                <span class="about-value-icon">✦</span>
+                <strong>克制</strong>
+                <span>功能不多，但每个功能都是真实需要的</span>
+              </div>
+              <div class="about-value">
+                <span class="about-value-icon">✦</span>
+                <strong>实用</strong>
+                <span>先解决自己的问题，再希望帮到别人</span>
+              </div>
+              <div class="about-value">
+                <span class="about-value-icon">✦</span>
+                <strong>真实</strong>
+                <span>配色是真实喜好，buy me a coffee 是真实乐趣</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-closing">
+            <h2>一个 PM 的第一个电子产品宝宝</h2>
+            <p>从 Claude 搭起第一个界面，到扣子编程里十几轮的 bug 修改和界面打磨，<br>这是一段零编程基础的 PM 用「好好提需求」换来的产品。</p>
+            <p class="about-closing-hint">功能局限，但真实有用。这就够了。</p>
+            <div class="about-author">
+              <svg viewBox="0 0 24 24" width="14" height="14">
+                <ellipse cx="12" cy="16" rx="4.5" ry="3.5" fill="#B8A9E8"/>
+                <ellipse cx="6" cy="10.5" rx="1.8" ry="2.3" fill="#B8A9E8"/>
+                <ellipse cx="18" cy="10.5" rx="1.8" ry="2.3" fill="#B8A9E8"/>
+                <ellipse cx="9.5" cy="6" rx="2.0" ry="2.5" fill="#B8A9E8"/>
+                <ellipse cx="14.5" cy="6" rx="2.0" ry="2.5" fill="#B8A9E8"/>
+              </svg>
+              <span>Miampic V1.0.0 · by Prune</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- 获取 API Key 弹窗 -->
+    <div class="modal-overlay" id="apiKeyModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>获取 API Key</h3>
+          <button type="button" class="modal-close" id="closeApiKeyModal">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="api-links">
+            <a href="https://siliconflow.cn" target="_blank" class="api-link-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>获取硅基流动 Key</span>
+            </a>
+            <a href="https://aistudio.google.com/apikey" target="_blank" class="api-link-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>获取 Google Gemini Key</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>Miampic · 图片提示词生成器</span>
+      <span class="separator">·</span>
+      <span>V1.0.0</span>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
