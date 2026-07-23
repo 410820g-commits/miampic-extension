@@ -1,0 +1,156 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Miampic - 截图、上传或右键图片，一键生成 AI 生图提示词的浏览器扩展。" />
+  <title>Miampic - 图片提示词生成器</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAFA;
+      --panel: rgba(255, 255, 255, 0.78);
+      --text: #3F3D52;
+      --muted: #777386;
+      --lavender: #B8A9E8;
+      --mint: #A8D8B8;
+      --butter: #F5E6B8;
+      --line: rgba(184, 169, 232, 0.22);
+      --shadow: 0 14px 42px rgba(85, 75, 110, 0.12);
+    }
+    body {
+      min-height: 100vh;
+      font-family: 'Nunito', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.75;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0 0 auto;
+      height: 68vh;
+      background: linear-gradient(180deg, rgba(184,169,232,0.22), rgba(168,216,184,0.13) 42%, rgba(250,250,250,0));
+      pointer-events: none;
+      z-index: -1;
+    }
+    a { color: inherit; }
+    .wrap { width: min(980px, calc(100% - 36px)); margin: 0 auto; }
+    .hero { padding: 72px 0 44px; text-align: center; }
+    .logo-mark { width: 96px; height: 96px; margin: 0 auto 16px; filter: drop-shadow(0 12px 26px rgba(100,90,120,0.18)); }
+    .brand { font-size: clamp(38px, 7vw, 58px); font-weight: 800; letter-spacing: 0; line-height: 1; background: linear-gradient(135deg, #8A7AB8, #5F947E); -webkit-background-clip: text; color: transparent; }
+    .tagline { margin: 16px auto 0; max-width: 680px; font-size: 18px; color: var(--muted); }
+    .hero-actions { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .btn-primary { color: #fff; background: linear-gradient(135deg, var(--lavender), var(--mint)); box-shadow: 0 10px 28px rgba(184,169,232,0.32); }
+    .btn-secondary { color: #655C84; background: rgba(255,255,255,0.72); border: 1px solid var(--line); }
+    .btn:hover { transform: translateY(-2px); }
+    .screens { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 20px auto 48px; }
+    .shot { background: var(--panel); border: 1px solid rgba(255,255,255,0.66); border-radius: 14px; padding: 12px; box-shadow: var(--shadow); backdrop-filter: blur(20px); }
+    .shot img { width: 100%; display: block; border-radius: 10px; object-fit: cover; }
+    .section { padding: 34px 0; }
+    .section-head { text-align: center; margin-bottom: 20px; }
+    .section-title { font-size: 26px; font-weight: 800; letter-spacing: 0; }
+    .section-desc { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .card { background: var(--panel); border: 1px solid rgba(255,255,255,0.66); border-radius: 14px; padding: 20px; box-shadow: 0 8px 28px rgba(85,75,110,0.08); backdrop-filter: blur(18px); }
+    .card h3 { font-size: 16px; margin-bottom: 6px; }
+    .card p { color: var(--muted); font-size: 13px; }
+    .pill { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
+    .pill-purple { color: #7567A9; background: rgba(184,169,232,0.2); }
+    .pill-yellow { color: #8A6A28; background: rgba(245,230,184,0.48); }
+    .steps { display: grid; gap: 10px; max-width: 760px; margin: 0 auto; }
+    .step { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; background: rgba(255,255,255,0.72); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+    .num { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: white; font-weight: 800; background: linear-gradient(135deg, var(--lavender), var(--mint)); }
+    .step strong { display: block; font-size: 14px; }
+    .step span { color: var(--muted); font-size: 13px; }
+    .changelog { max-width: 760px; margin: 0 auto; display: grid; gap: 14px; }
+    .release { background: rgba(255,255,255,0.78); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; box-shadow: 0 8px 28px rgba(85,75,110,0.08); }
+    .release h3 { font-size: 20px; margin-bottom: 10px; color: #655C84; }
+    .release ul { padding-left: 20px; color: var(--muted); font-size: 14px; }
+    .release li + li { margin-top: 4px; }
+    .footer { text-align: center; color: #9893A8; font-size: 13px; padding: 48px 0; }
+    code { padding: 2px 6px; border-radius: 5px; background: rgba(184,169,232,0.13); color: #655C84; }
+    @media (max-width: 760px) {
+      .hero { padding-top: 48px; }
+      .screens, .grid { grid-template-columns: 1fr; }
+      .tagline { font-size: 15px; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <svg class="logo-mark" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B8A9E8"/><stop offset="0.5" stop-color="#A8D8B8"/><stop offset="1" stop-color="#F5E6B8"/></linearGradient></defs>
+        <rect x="4" y="4" width="120" height="120" rx="24" fill="url(#g)"/>
+        <g fill="#5D5A6E"><ellipse cx="62" cy="98" rx="24" ry="20"/><path d="M85 95Q98 88 102 75Q105 65 102 58Q100 54 97 56Q94 60 94 68Q94 80 82 92Z"/><ellipse cx="62" cy="58" rx="32" ry="28"/><polygon points="36,32 46,58 26,50"/><polygon points="88,32 78,58 98,50"/><ellipse cx="50" cy="54" rx="6" ry="7" fill="#fff"/><ellipse cx="74" cy="54" rx="6" ry="7" fill="#fff"/><circle cx="51" cy="55" r="3.5" fill="#3D3A4E"/><circle cx="75" cy="55" r="3.5" fill="#3D3A4E"/><ellipse cx="62" cy="66" rx="4" ry="2.5" fill="#E8A0B0"/></g>
+      </svg>
+      <h1 class="brand">Miampic</h1>
+      <p class="tagline">截图、上传或右键图片，一键生成适合 AI 生图的提示词。支持中英切换、比例约束、历史记录和日夜间模式。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="miampic-extension.zip" download>下载插件 V1.0.1</a>
+        <a class="btn btn-secondary" href="https://github.com/PruneGeng/miampic-extension" target="_blank" rel="noreferrer">查看 GitHub</a>
+      </div>
+    </section>
+
+    <div class="screens">
+      <div class="shot"><img src="popup-demo.png" alt="Miampic 弹窗界面预览"></div>
+      <div class="shot"><img src="popup-demo2.png" alt="Miampic 使用流程预览"></div>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">核心能力</h2><p class="section-desc">把图片理解、提示词生成和复制使用串成一个更短的流程。</p></div>
+      <div class="grid">
+        <div class="card"><span class="pill pill-purple">图片分析</span><h3>截图 / 上传 / 右键</h3><p>从网页区域、本地图片或页面图片快速获取参考图，减少来回复制和切换。</p></div>
+        <div class="card"><span class="pill pill-purple">提示词生成</span><h3>直接生图 / 辅助改图</h3><p>根据不同用途生成对应提示词，既能直接生图，也能配合原图做风格迁移。</p></div>
+        <div class="card"><span class="pill pill-yellow">比例约束</span><h3>默认 9:16，可自由切换</h3><p>支持 9:16、3:4、1:1、16:9 等常用比例，并写入生成要求中。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">安装步骤</h2><p class="section-desc">当前为开发者模式安装，下载后需要先解压。</p></div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><strong>下载插件压缩包</strong><span>点击上方按钮下载 <code>miampic-extension.zip</code>。</span></div></div>
+        <div class="step"><div class="num">2</div><div><strong>解压文件</strong><span>将 zip 解压到一个固定文件夹，后续不要随意删除这个文件夹。</span></div></div>
+        <div class="step"><div class="num">3</div><div><strong>打开扩展管理页</strong><span>在 Chrome 或 Edge 地址栏输入 <code>chrome://extensions/</code>。</span></div></div>
+        <div class="step"><div class="num">4</div><div><strong>开启开发者模式</strong><span>打开页面右上角的开发者模式开关。</span></div></div>
+        <div class="step"><div class="num">5</div><div><strong>加载已解压的扩展</strong><span>选择解压后的 <code>miampic-extension</code> 文件夹即可。</span></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="changelog">
+      <div class="section-head"><h2 class="section-title">更新说明</h2><p class="section-desc">从 1.0.0 到 1.0.1，主要是把真实使用中的细节补齐。</p></div>
+      <div class="changelog">
+        <div class="release">
+          <h3>1.0.1</h3>
+          <ul>
+            <li>新增 图片比例设置，支持 9:16、3:4、1:1、16:9 等常用比例，并写入提示词生成要求。</li>
+            <li>新增 日间 / 夜间模式切换，popup、设置页和提示词弹窗统一适配。</li>
+            <li>新增 提示词弹窗与历史记录中的图片比例 tag。</li>
+            <li>优化 提示词弹窗的尺寸调整、自定义缩放角标、尺寸记忆和文本区域布局。</li>
+            <li>优化 受限页面提示、popup 暗色渐变、设置页按钮和历史记录视觉细节。</li>
+            <li>修复 Gemini 翻译路径、流式解析 buffer、翻译后顶部空行、生成完成后弹窗高度回退等问题。</li>
+          </ul>
+        </div>
+        <div class="release">
+          <h3>1.0.0</h3>
+          <ul>
+            <li>新增 截图分析、上传图片、右键图片生成提示词三种入口。</li>
+            <li>新增 直接生图与辅助改图两种提示词用途。</li>
+            <li>新增 硅基流动与 Google Gemini 两个 API 平台配置。</li>
+            <li>新增 中英文提示词生成与翻译切换能力。</li>
+            <li>新增 设置页、历史记录、复制提示词和一键跳转生图工具。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">Miampic V1.0.1 · by Prune</footer>
+  </main>
+</body>
+</html>
